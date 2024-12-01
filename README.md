@@ -21,11 +21,11 @@ SMART Customer Support is a web application designed to facilitate customer supp
 
 ## Project Structure
 SMART-Customer-Support/
-├── backend/            # Backend server code
-├── frontend/           # Frontend user interfaces
-│   ├── customer-app/   # Customer interface application
-│   └── agent-app/      # Agent interface application
-└── README.md           # Project documentation
+├── backend/            # Backend server code   
+├── frontend/           # Frontend user interfaces   
+│   ├── customer-app/   # Customer interface application   
+│   └── agent-app/      # Agent interface application   
+└── README.md           # Project documentation   
  
 
 

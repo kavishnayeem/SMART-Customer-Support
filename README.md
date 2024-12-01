@@ -1,50 +1,138 @@
-# SMART Customer Support Chatbot
+# SMART Customer Support
 
-## Project Description
+## Project Overview
 
-The **SMART Customer Support Chatbot** is a prototype designed to simulate a dynamic, conversational assistant for an online retail platform. This chatbot offers personalized support by drawing from user account information, past interactions, and product preferences. Using the OpenAI API, the chatbot responds to customer inquiries, suggests products, and assists with common support issues in a way that feels natural and engaging.
+SMART Customer Support is a web application designed to facilitate customer support interactions between users and agents. The application consists of two main components: a frontend user interface for customers and a separate agent interface for support agents. The system utilizes real-time communication through WebSockets, allowing for seamless chat interactions.
 
-## Features
+### Features
 
-- **Personalized Account-Based Interactions**: Users initiate a unique chat session by entering an account number, receiving customized responses based on their data.
-- **Context-Aware Conversations**: The chatbot retains conversation history within each session, allowing it to build on previous inquiries and maintain a coherent flow.
-- **Intelligent Recommendations**: Provides relevant product suggestions and answers based on past purchases, user preferences, and specific queries.
-- **Automatic Greeting**: Once an account number is submitted, the chatbot starts with a friendly greeting, setting a welcoming tone for the interaction.
+- User authentication and login
+- Real-time chat functionality between users and agents
+- Text-to-audio feature for enhanced accessibility
+- Display of customer information, including recent purchases and support history
+- Responsive design for a better user experience
+
+## Technologies Used
+
+- **Frontend**: React, Socket.IO
+- **Backend**: Node.js, Express, MongoDB
+- **Real-time Communication**: Socket.IO
+- **Styling**: CSS
+
+## Project Structure
+SMART-Customer-Support/
+├── Backend/ # Backend server code
+├── Frontend/ # Frontend user interface
+│ ├── my-app/ # User interface application
+│ └── agent-app/ # Agent interface application
+└── README.md # Project documentation
 
 
-## How to Run the Project
 
-To run this project locally, follow these steps:
+## Prerequisites
 
-1. **Install Dependencies**
-   Make sure you have Node.js installed. Navigate to the project directory and run:
+Before running the project, ensure you have the following installed:
+
+- Node.js (v14 or higher)
+- MongoDB (for the backend)
+- Git (for cloning the repository)
+
+## Getting Started
+
+Follow these steps to set up and run the project locally:
+
+### 1. Clone the Repository
+bash
+git clone https://github.com/kavishnayeem/SMART-Customer-Support.git
+cd SMART-Customer-Support
+
+
+### 2. Set Up the Backend
+
+1. Navigate to the `Backend` directory:
+
+   ```bash
+   cd Backend
+   ```
+
+2. Install the required dependencies:
+
    ```bash
    npm install
    ```
 
-2. **Start the Development Server**
-   After the dependencies are installed, start the application with:
+3. Create a `.env` file in the `Backend` directory and add the following environment variables:
+
+   ```plaintext
+   PORT=3001
+   MONGODB_URI=<your_mongodb_connection_string>
+   OPENAI_API_KEY=<your_openai_api_key>
+   ```
+
+4. Start the backend server:
+
    ```bash
    npm start
    ```
-   This will launch the application in your default web browser at `http://localhost:3000`.
 
-## Further Improvements
+### 3. Set Up the Frontend
 
-While this prototype serves its purpose, there are several enhancements that can be made:
+1. Navigate to the `Frontend/my-app` directory:
 
-1. **User Authentication**: Implement user authentication to provide a personalized experience and maintain user sessions.
+   ```bash
+   cd ../Frontend/my-app
+   ```
 
-2. **Enhanced Error Handling**: Improve error handling to provide more informative feedback to users in case of issues.
+2. Install the required dependencies:
 
-3. **Accessibility Features**: Ensure the application is fully accessible, including keyboard navigation and screen reader support.
+   ```bash
+   npm install
+   ```
 
-4. **Chat History**: Implement a feature to save and retrieve chat history for users to review past interactions.
+3. Start the user interface:
 
-5. **Styling Improvements**: Enhance the UI/UX with better styling and animations to make the application more engaging.
+   ```bash
+   npm start
+   ```
 
-6. **Testing**: Add unit and integration tests to ensure the reliability of the application.
+4. Open a new terminal and navigate to the `Frontend/agent-app` directory:
 
-7. **Deployment**: Consider deploying the application using platforms like Vercel or Netlify for easier access and sharing.
+   ```bash
+   cd ../agent-app
+   ```
 
-By addressing these areas, the application can evolve into a more robust and user-friendly solution.
+5. Install the required dependencies:
+
+   ```bash
+   npm install
+   ```
+
+6. Start the agent interface:
+
+   ```bash
+   npm start
+   ```
+
+### 4. Access the Application
+
+- Open your web browser and go to `http://localhost:3000` to access the user interface.
+- Open another tab or window and go to `http://localhost:3001` to access the agent interface.
+
+## Usage
+
+1. **User Interface**: Users can log in using their credentials, send messages, and request to speak with an agent.
+2. **Agent Interface**: Agents can connect to users, view customer information, and respond to messages.
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a pull request or open an issue for any suggestions or improvements.
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+
+## Acknowledgments
+
+- Thanks to the contributors and the open-source community for their support and resources.
+
+

@@ -24,19 +24,8 @@ const configuration = new Configuration({
 });
 const openai = new OpenAIApi(configuration);
 
-// MongoDB Connection
-mongoose.connect(process.env.MONGODB_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
-mongoose.connection.on('connected', () => {
-  console.log('Successfully connected to MongoDB');
-});
-mongoose.connection.on('error', (err) => {
-  console.error('MongoDB connection error:', err);
-});
-
 // User Schema
+
 const UserSchema = new mongoose.Schema({
   accountNumber: {
     type: String,
@@ -60,7 +49,25 @@ const UserSchema = new mongoose.Schema({
   preferences: [String],
 });
 
-const User = mongoose.model('User', UserSchema);
+const User = mongoose.model('Customer', UserSchema, 'Customers');
+ // Changed model name to 'Customer'
+
+// MongoDB Connection
+mongoose.connect(process.env.MONGODB_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
+mongoose.connection.on('connected', async () => {
+  console.log('Successfully connected to MongoDB');
+  
+  // Print all data from the User collection
+  const users = await User.find({});
+  console.log('All users:', users);
+});
+mongoose.connection.on('error', (err) => {
+  console.error('MongoDB connection error:', err);
+});
+
 
 
 app.post('/api/support', async (req, res) => {
@@ -76,8 +83,8 @@ app.post('/api/support', async (req, res) => {
       }
   
       // Find the user in the database
-      const user = await User.findOne({ accountNumber });
-  
+      const user = await User.findOne({ accountNumber: accountNumber.trim() }); // Added trim to accountNumber
+      console.log(user);
       if (!user) {
         return res.status(404).json({
           success: false,
@@ -193,7 +200,7 @@ io.on('connection', (socket) => {
     socket.role = 'user';
   
     // Find user information
-    const user = await User.findOne({ accountNumber });
+    const user = await User.findOne({ accountNumber: accountNumber.trim() }); // Added trim to accountNumber
     if (!user) {
       socket.emit('humanResponse', { message: 'User not found. Please check the account number.' });
       return;

@@ -1,0 +1,28 @@
+[
+    {
+      "accountNumber": "1021",
+      "email": "alex.parker@example.com",
+      "password": "Password123!"
+    },
+    {
+      "accountNumber": "1022",
+      "email": "bella.thompson@example.com",
+      "password": "Password123!"
+    },
+    {
+      "accountNumber": "1023",
+      "email": "carlos.diaz@example.com",
+      "password": "Password123!"
+    },
+    {
+      "accountNumber": "1024",
+      "email": "dana.evans@example.com",
+      "password": "Password123!"
+    },
+    {
+      "accountNumber": "1025",
+      "email": "evan.gray@example.com",
+      "password": "Password123!"
+    }
+  ]
+  

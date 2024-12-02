@@ -84,20 +84,34 @@ function App() {
               <h2>Customer Information</h2>
               <p><strong>Name:</strong> {customerData.name}</p>
               <p><strong>Account Number:</strong> {customerData.accountNumber}</p>
+              <p><strong>Location:</strong> {customerData.location.city}, {customerData.location.state}, {customerData.location.country}</p>
+              <p><strong>Average Spending:</strong> ${customerData.average_spending || 'Not available'}</p>
+              <p><strong>Subscription Status:</strong> {customerData.subscription_status || 'Not available'}</p>
               <p><strong>Recent Purchases:</strong></p>
               <ul>
                 {customerData.recent_purchases && customerData.recent_purchases.length > 0 ? (
                   customerData.recent_purchases.map((purchase, index) => (
                     <li key={index}>
-                      {purchase.company} {purchase.model} ({purchase.specs})
+                      {purchase.company} {purchase.model} ({purchase.specs}) - Purchased on {purchase.purchase_date.split('T')[0]}
                     </li>
                   ))
                 ) : (
                   <li>No recent purchases</li>
                 )}
               </ul>
-              <p><strong>Support History:</strong> {customerData.support_history.join(', ') || 'None'}</p>
-              <p><strong>Preferences:</strong> {customerData.preferences.join(', ') || 'None'}</p>
+              <p><strong>Support History:</strong></p>
+              <ul>
+                {customerData.support_history && customerData.support_history.length > 0 ? (
+                  customerData.support_history.map((support, index) => (
+                    <li key={index}>
+                      Issue: {support.issue} on {support.date.split('T')[0]} - Resolution: {support.resolution}
+                    </li>
+                  ))
+                ) : (
+                  <li>No support history</li>
+                )}
+              </ul>
+              <p><strong>Preferences:</strong> {customerData.preferences?.join(', ') || 'None'}</p>
             </div>
             <div className="chat-messages">
               {messages.map((msg, index) => (

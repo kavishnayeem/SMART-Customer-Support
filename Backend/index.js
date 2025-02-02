@@ -3,7 +3,6 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const { Configuration, OpenAIApi } = require('openai');
-const http = require('http');
 const { Server } = require('socket.io');
 
 const app = express();
@@ -191,7 +190,9 @@ Generate a response that directly addresses the customer’s question, acknowled
 });
 
 // Socket.io Setup
-const server = http.createServer(app);
+const server = app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});
 const io = new Server(server, {
   cors: {
     origin: '*', // Adjust this to match your frontend URLs
@@ -322,6 +323,3 @@ function assignUserToAgent(agentSocket) {
     }
   }
 }
-server.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-});

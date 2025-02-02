@@ -3,7 +3,6 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const { Configuration, OpenAIApi } = require('openai');
-const { Server } = require('socket.io');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -70,7 +69,6 @@ mongoose.connect(process.env.MONGODB_URI, {
 });
 mongoose.connection.on('connected', async () => {
   console.log('Successfully connected to MongoDB');
-  
 });
 mongoose.connection.on('error', (err) => {
   console.error('MongoDB connection error:', err);
@@ -190,6 +188,7 @@ Generate a response that directly addresses the customer’s question, acknowled
 });
 
 // Socket.io Setup
+const { Server } = require('socket.io');
 const server = app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });

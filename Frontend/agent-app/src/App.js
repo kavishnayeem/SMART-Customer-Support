@@ -14,7 +14,7 @@ function App() {
 
   useEffect(() => {
     // Initialize socket connection
-    const newSocket = io('http://localhost:3001'); // Replace with your backend URL if different
+    const newSocket = io('https://backend-seven-psi-80.vercel.app'); // Replace with your backend URL if different
     setSocket(newSocket);
 
     newSocket.on('connect', () => {

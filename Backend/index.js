@@ -197,7 +197,7 @@ Generate a response that directly addresses the customer's question, acknowledge
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
-    origin: '*', // Adjust this to match your frontend URLs
+    origin: ['https://user-app-sand.vercel.app', 'https://agent-app-sand.vercel.app'],
     methods: ['GET', 'POST'],
   },
 });

@@ -13,8 +13,11 @@ function App() {
   const [socket, setSocket] = useState(null);
 
   useEffect(() => {
-    // Initialize socket connection
-    const newSocket = io('https://backend-seven-psi-80.vercel.app'); // Replace with your backend URL if different
+    // Initialize socket connection with Redis adapter
+    const newSocket = io('https://backend-seven-psi-80.vercel.app', {
+      transports: ['websocket'],
+      upgrade: false,
+    }); // Replace with your backend URL if different
     setSocket(newSocket);
 
     newSocket.on('connect', () => {

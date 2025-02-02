@@ -83,8 +83,11 @@ function App() {
       ) {
         setInAgentMode(true);
 
-        // Initialize socket connection
-        const newSocket = io('http://localhost:3001');
+        // Initialize socket connection with Redis adapter
+        const newSocket = io('https://backend-seven-psi-80.vercel.app', {
+          transports: ['websocket'],
+          upgrade: false,
+        }); // Replace with your backend URL if different
         setSocket(newSocket);
 
         // Notify server that user has joined

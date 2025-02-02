@@ -5,6 +5,8 @@ const cors = require('cors');
 const { Configuration, OpenAIApi } = require('openai');
 const http = require('http');
 const { Server } = require('socket.io');
+const { createClient } = require('redis');
+const { createAdapter } = require('@socket.io/redis-adapter');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -193,13 +195,20 @@ Generate a response that directly addresses the customer's question, acknowledge
   }
 });
 
-// Socket.io Setup
+// Socket.io Setup with Redis Adapter
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
     origin: ['https://user-app-sand.vercel.app', 'https://agent-app-chi.vercel.app/'],
     methods: ['GET', 'POST'],
   },
+});
+
+const pubClient = createClient({ url: process.env.REDIS_URL });
+const subClient = pubClient.duplicate();
+
+Promise.all([pubClient.connect(), subClient.connect()]).then(() => {
+  io.adapter(createAdapter(pubClient, subClient));
 });
 
 // Store connected agents and users

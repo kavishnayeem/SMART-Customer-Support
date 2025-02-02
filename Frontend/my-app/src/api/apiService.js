@@ -1,7 +1,7 @@
 // frontend/src/api/apiService.js
 const sendMessageToBackend = async ({ accountNumber, message, chatHistory }) => {
   try {
-    const response = await fetch('http://localhost:3001/api/support', {
+    const response = await fetch('https://backend-seven-psi-80.vercel.app/api/support', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

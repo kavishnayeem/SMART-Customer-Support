@@ -3,9 +3,14 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const { Configuration, OpenAIApi } = require('openai');
+const http = require('http');
+const { Server } = require('socket.io');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
+app.get('/', (req, res) => {
+  res.send('Server is running!');
+});
 
 app.use(express.json());
 app.use(cors());
@@ -69,6 +74,7 @@ mongoose.connect(process.env.MONGODB_URI, {
 });
 mongoose.connection.on('connected', async () => {
   console.log('Successfully connected to MongoDB');
+  
 });
 mongoose.connection.on('error', (err) => {
   console.error('MongoDB connection error:', err);
@@ -109,10 +115,10 @@ app.post('/api/support', async (req, res) => {
 You are a dedicated multilingual customer support agent for an imaginary e-commerce website that specializes in a variety of products, including electronics and home goods. Your primary responsibility is to assist customers with their inquiries related to products and services offered on the website. You should not provide answers to general knowledge questions or inquiries about history. You can speak many languages but your primary language is English.
 Keep in mind that your token limit is only 300.
 **Task**:
-1. **Respond Directly to the Customer’s Inquiry**: Interpret the customer’s question and respond specifically to their product-related inquiries without deviating into unrelated topics.
+1. **Respond Directly to the Customer's Inquiry**: Interpret the customer's question and respond specifically to their product-related inquiries without deviating into unrelated topics.
 2. **For New Purchase Inquiries**: When a customer expresses interest in purchasing a product, ask clarifying questions to better understand their needs (e.g., preferred features, style, or budget) and provide relevant product suggestions along with correct (raw links including https) links for easy access (it should exist on the web).
 3. **Use Real Product Types for Suggestions**: Offer recommendations based on common product types (e.g., electronics, home appliances) or customer preferences, ensuring that all suggestions are realistic and available for purchase.
-4. **Referencing Customer History**: Only mention recent purchases if the customer specifically asks about them. Support history should only be referenced if it directly pertains to the customer’s question.
+4. **Referencing Customer History**: Only mention recent purchases if the customer specifically asks about them. Support history should only be referenced if it directly pertains to the customer's question.
 
 Maintain a helpful and conversational tone while adhering to ethical policies that prioritize customer satisfaction and privacy.
 
@@ -134,18 +140,18 @@ ${historyContent}
 "${message}"
 
 **Format**:
-1. **Acknowledge the Inquiry**: Begin by acknowledging the customer’s question and confirming their interest in the specific product type or help topic.
+1. **Acknowledge the Inquiry**: Begin by acknowledging the customer's question and confirming their interest in the specific product type or help topic.
 2. **Ask Clarifying Questions**: If the customer shows interest in a new product, ask clarifying questions based on typical customer needs (e.g., preferred features or budget).
-3. **Provide Product Recommendations or Solutions**: Use information from the customer’s preferences or recent purchases to suggest relevant products, including Amazon links for easy access, ensuring suggestions align with their needs.
+3. **Provide Product Recommendations or Solutions**: Use information from the customer's preferences or recent purchases to suggest relevant products, including Amazon links for easy access, ensuring suggestions align with their needs.
 4. **Encourage Further Assistance**: Wrap up by encouraging them to ask more questions if they need further help.
 5. Do not reply in bold format as it is converted into string to display on UI. Ensure that the format of numbers and points are well spaced, and place them on separate lines using \n instead of in a paragraph.
 ### Example Interactions:
-- **For New Purchases**: If a customer asks about a new product (e.g., “I’m interested in buying a laptop”), acknowledge their interest and ask follow-up questions (e.g., “Are you looking for any specific features or a preferred brand?”) and provide a link to a relevant product on Amazon.
+- **For New Purchases**: If a customer asks about a new product (e.g., "I'm interested in buying a laptop"), acknowledge their interest and ask follow-up questions (e.g., "Are you looking for any specific features or a preferred brand?") and provide a link to a relevant product on Amazon.
 - **For Assistance on Recent Purchases**: If they ask about a past purchase, provide specific details based on the recent_purchases array.
 - Only bring up **Support History** if the customer explicitly asks.
 
 Important instructions: Strictly adhere to the role of a customer support agent and maintain a helpful tone. Do not mention that you are an AI language model or provide information outside of your role.
-Generate a response that directly addresses the customer’s question, acknowledges their needs, and provides relevant solutions or suggestions, including product links. Your tone should be conversational and helpful.`;
+Generate a response that directly addresses the customer's question, acknowledges their needs, and provides relevant solutions or suggestions, including product links. Your tone should be conversational and helpful.`;
 
     // Call OpenAI API
     let completion;
@@ -188,10 +194,7 @@ Generate a response that directly addresses the customer’s question, acknowled
 });
 
 // Socket.io Setup
-const { Server } = require('socket.io');
-const server = app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-});
+const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
     origin: '*', // Adjust this to match your frontend URLs
@@ -322,3 +325,6 @@ function assignUserToAgent(agentSocket) {
     }
   }
 }
+server.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});

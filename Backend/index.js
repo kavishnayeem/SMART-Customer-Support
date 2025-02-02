@@ -71,6 +71,7 @@ mongoose.connect(process.env.MONGODB_URI, {
 });
 mongoose.connection.on('connected', async () => {
   console.log('Successfully connected to MongoDB');
+  
 });
 mongoose.connection.on('error', (err) => {
   console.error('MongoDB connection error:', err);

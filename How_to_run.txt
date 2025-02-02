@@ -1,0 +1,30 @@
+Step 1:
+
+Go in Backend folder and run index.js using below command:
+node index.js
+
+Step 2:
+Go in frontend/my-app folder and run react frontend using below command:
+npm start
+
+Step 3:
+Go in frontend/agent-app folder and run react frontend using below command:
+PORT=3002 npm start
+
+
+
+you can use this password for login :
+
+emails:
+alex.parker@example.com
+bella.thompson@example.com
+carlos.diaz@example.com
+dana.evans@example.com
+evan.gray@example.com
+
+password:
+Password123!
+
+
+To connect to agent type:
+"connect to agent"

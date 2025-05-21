@@ -15,6 +15,9 @@ const LoginInput = ({ onSubmit }) => {
 
   return (
     <form className="login-input" onSubmit={handleSubmit}>
+      <p>For testing purposes, use the following credentials:</p>
+      <p>Email: alex.parker@example.com</p>
+      <p>Password: Password123!</p>
       <input
         type="email"
         value={email}

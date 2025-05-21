@@ -282,6 +282,34 @@
   transition: 0.4s;
   border-radius: 50%;
 }
+.message p {
+  margin: 0;
+}
+
+.message strong {
+  font-weight: 600;
+}
+
+.message a {
+  color: #0071e3;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.message a:hover {
+  text-decoration: underline;
+}
+.message ul {
+  padding-left: 1.2rem;
+  margin: 0;
+}
+
+.message li {
+  margin-bottom: 0.5rem;
+  margin-top: 0.5rem;
+  margin-left: 1rem; /* Adjusted margin-left to move numbers to the right */
+}
+
 
 input:checked + .slider {
   background-color: #0071e3;
